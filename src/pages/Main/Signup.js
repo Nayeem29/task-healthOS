@@ -1,63 +1,101 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { FaMobileAlt } from 'react-icons/fa';
 
 const Signup = () => {
+  const [agree, setAgree] = useState(false);
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
+  let content;
+  const handleForm = (e) => {
+    e.preventDefault();
+    const userName = e.target.name.value;
+    const userEmail = e.target.email.value;
+    const userMobile = e.target.mobile.value;
+    const userPassword = e.target.password.value;
+    if (!userMobile.startsWith('8801')) {
+      setError('Mobile number should starts with country code');
+    } else if (userPassword.length < 4) {
+      setError("Password must be 4 characters long")
+    }
+    // e.target.reset()
+    navigate('/login');
+
+  }
+  if (error) {
+    console.log(error);
+    content = <p className='text-red-600 text-center font-semibold text-base'>{error}</p>
+  }
   return (
-    <section class="py-10 bg-gray-50 sm:py-16 lg:py-24">
-      <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-        <div class="max-w-2xl mx-auto text-center">
-          <h2 class="text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">Create free account</h2>
-          {/* <p class="max-w-xl mx-auto mt-4 text-base leading-relaxed text-gray-600">You can create a free Celebration account in 2 minutes</p> */}
+    <section className="py-10 bg-gray-50 sm:py-16 lg:py-24">
+      <div className="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
+        <div className="max-w-2xl mx-auto text-center">
+          <h2 className="text-3xl font-bold leading-tight text-black sm:text-4xl lg:text-5xl">Create free account</h2>
         </div>
 
-        <div class="relative max-w-md mx-auto mt-8 md:mt-16">
-          <div class="overflow-hidden bg-white rounded-md shadow-md">
-            <div class="px-4 py-6 sm:px-8 sm:py-7">
-              <form action="#" method="POST">
-                <div class="space-y-5">
+        <div className="relative max-w-md mx-auto mt-8 md:mt-16">
+          <div className="overflow-hidden bg-white rounded-md shadow-md">
+            <div className="px-4 py-6 sm:px-8 sm:py-7">
+              <form onSubmit={handleForm} method="POST">
+                <div className="space-y-5">
                   <div>
-                    <label for="" class="text-base font-medium text-gray-900"> First & Last name </label>
-                    <div class="mt-2.5 relative text-gray-400 focus-within:text-gray-600">
-                      <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <label for="" className="text-base font-medium text-gray-900"> First & Last name </label>
+                    <div className="mt-2.5 relative text-gray-400 focus-within:text-gray-600">
+                      <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
                       </div>
 
                       <input
+                        name='fullName'
                         type="text"
-                        name=""
                         id=""
+                        required
                         placeholder="Enter your full name"
-                        class="block w-full py-4 pl-10 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600"
+                        className="block w-full py-4 pl-10 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label for="" class="text-base font-medium text-gray-900"> Email address </label>
-                    <div class="mt-2.5 relative text-gray-400 focus-within:text-gray-600">
-                      <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <label for="" className="text-base font-medium text-gray-900"> Email address </label>
+                    <div className="mt-2.5 relative text-gray-400 focus-within:text-gray-600">
+                      <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 12a4 4 0 10-8 0 4 4 0 008 0zm0 0v1.5a2.5 2.5 0 005 0V12a9 9 0 10-9 9m4.5-1.206a8.959 8.959 0 01-4.5 1.207" />
                         </svg>
                       </div>
 
                       <input
                         type="email"
-                        name=""
+                        name="email"
                         id=""
+                        required
                         placeholder="Enter email to get started"
-                        class="block w-full py-4 pl-10 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600"
+                        className="block w-full py-4 pl-10 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600"
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label for="" class="text-base font-medium text-gray-900"> Password </label>
-                    <div class="mt-2.5 relative text-gray-400 focus-within:text-gray-600">
-                      <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
-                        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <label for="" className="text-base font-medium text-gray-900">Mobile</label>
+                    <div className="mt-2.5 relative text-gray-400 focus-within:text-gray-600">
+                      <i className='absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none'><FaMobileAlt /></i>
+                      <input
+                        name='mobile'
+                        placeholder="Enter Mobile Number"
+                        required
+                        className="block w-full py-4 pl-10 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600"
+                      />
+                    </div>
+                  </div>
+
+                  <div>
+                    <label for="" className="text-base font-medium text-gray-900"> Password </label>
+                    <div className="mt-2.5 relative text-gray-400 focus-within:text-gray-600">
+                      <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg className="w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path
                             stroke-linecap="round"
                             stroke-linejoin="round"
@@ -69,30 +107,33 @@ const Signup = () => {
 
                       <input
                         type="password"
-                        name=""
+                        name="password"
                         id=""
                         placeholder="Enter your password"
-                        class="block w-full py-4 pl-10 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600"
+                        required
+                        className="block w-full py-4 pl-10 pr-4 text-black placeholder-gray-500 transition-all duration-200 bg-white border border-gray-200 rounded-md focus:outline-none focus:border-blue-600 caret-blue-600"
                       />
                     </div>
                   </div>
 
-                  <div class="flex items-center">
-                    <input type="checkbox" name="agree" id="agree" class="w-5 h-5 text-green-500 bg-white border-gray-200 rounded" checked />
+                  <div className="flex items-center">
+                    <input onClick={() => setAgree(!agree)}
+                      type="checkbox" name="agree" id="agree" className="w-5 h-5 text-green-500 bg-white border-gray-200 rounded" />
 
-                    <label for="agree" class="ml-3 text-sm font-medium text-gray-500">
-                      I agree to HealthOS <p title="" class="text-blue-600 inline hover:text-blue-700">Terms of Service</p> and <p title="" class="text-blue-600 hover:text-blue-700 inline">Privacy Policy</p>
+                    <label for="agree" className="ml-3 text-sm font-medium text-gray-500">
+                      I agree to HealthOS <p title="" className="text-blue-600 inline hover:text-blue-700">Terms of Service</p> and <p title="" className="text-blue-600 hover:text-blue-700 inline">Privacy Policy</p>
                     </label>
                   </div>
-
+                  {error !== null && content}
                   <div>
-                    <button type="submit" class="inline-flex items-center justify-center w-full px-4 py-4 text-base font-semibold text-white transition-all duration-200 bg-blue-600 border border-transparent rounded-md focus:outline-none hover:bg-blue-700 focus:bg-blue-700">
+                    <button type="submit" disabled={!agree}
+                      className={`inline-flex items-center justify-center w-full px-4 py-4 text-base font-semibold text-white transition-all duration-200 ${agree ? "bg-blue-600 border border-transparent rounded-md focus:outline-none hover:bg-blue-700 focus:bg-blue-700" : "bg-blue-200 border border-transparent rounded-md focus:outline-none"}`}>
                       Create account
                     </button>
                   </div>
 
-                  <div class="text-center">
-                    <p class="text-base text-gray-600">Already have an account? <Link to="/login" title="" class="font-medium text-orange-500 transition-all duration-200 hover:text-orange-600 hover:underline">Login here</Link></p>
+                  <div className="text-center">
+                    <p className="text-base text-gray-600">Already have an account? <Link to="/login" title="" className="font-medium text-orange-500 transition-all duration-200 hover:text-orange-600 hover:underline">Login here</Link></p>
                   </div>
                 </div>
               </form>
