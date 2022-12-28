@@ -1,10 +1,11 @@
 import React from 'react';
-import ProductCard from '../../components/ProductCard';
+// import ProductCard from '../../components/ProductCard';
+import ProductCartView from '../../components/ProductCartView';
 import { useProducts } from '../../context/ProductProvider';
 
 const Cart = () => {
-  const { state: { products, loading, error, cart } } = useProducts();
-  console.log(products[0], "product");
+  const { state: { loading, error, cart } } = useProducts();
+  // console.log(products[0], "product");
   let content;
   if (loading) {
     content = <p>Loading</p>
@@ -16,10 +17,11 @@ const Cart = () => {
     content = <p>Nothing to show here!!</p>
   }
   if (!loading && !error && cart.length) {
-    content = cart.map(p => <ProductCard key={p._id} products={p}></ProductCard>)
+    content = cart.map(p => <ProductCartView key={p._id} products={p}></ProductCartView>)
   }
+  //md:grid-cols-2 lg:grid-cols-4
   return (
-    <div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 max-w-7xl gap-14 mx-auto my-10'>
+    <div className='grid grid-cols-1 max-w-7xl gap-14 mx-auto my-10'>
       {content}
     </div>
   );

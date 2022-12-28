@@ -1,15 +1,12 @@
 import React from 'react';
 import { useProducts } from '../context/ProductProvider';
-import { BiListPlus } from "react-icons/bi";
 import { actionTypes } from '../state/productState/actionTypes';
 
 const ProductCard = ({ products }) => {
   const { dispatch } = useProducts();
   return (
     <div
-      className='shadow-lg rounded-3xl border  p-3 flex flex-col text-indigo-900'
-      key={products._id}
-    >
+      className='shadow-lg rounded-3xl border  p-3 flex flex-col text-indigo-900'>
       <div className='h-52 w-52 mx-auto'>
         <img src={products.image} alt={products.model} />
       </div>
@@ -18,7 +15,7 @@ const ProductCard = ({ products }) => {
       <div className=' flex-1'>
         <ul className='space-y-2'>
           {products.keyFeature.map((feature) => {
-            return <li className='text-sm '>{feature}</li>;
+            return <li className='text-sm'>{feature}</li>;
           })}
         </ul>
       </div>
@@ -33,9 +30,9 @@ const ProductCard = ({ products }) => {
         </button>
         <button
           title='Add to wishlist'
-          className='bg-indigo-500  py-1 px-2 rounded-full'
+          className='bg-indigo-500 rounded-full py-1 px-2 flex-1 text-white text-bold'
         >
-          <BiListPlus className='text-white' />
+          View Product
         </button>
       </div>
     </div>
